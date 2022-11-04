@@ -6,7 +6,7 @@ import bgMainMobile from "./assets/images/bg-main-mobile.png";
 
 import CardBackMobile from "./components/CardBackMobile";
 import CardFrontMobile from "./components/CardFrontMobile";
-import CardBack from "./components/CardBack";
+
 import FormSection from "./components/FormSection";
 function App() {
   const [count, setCount] = useState(0);
