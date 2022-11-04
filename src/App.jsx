@@ -7,11 +7,12 @@ import bgMainMobile from "./assets/images/bg-main-mobile.png";
 import CardBackMobile from "./components/CardBackMobile";
 import CardFrontMobile from "./components/CardFrontMobile";
 import CardBack from "./components/CardBack";
+import FormSection from "./components/FormSection";
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="max-w-[1440px] flex flex-col md:flex-row  bg-slate-500 mx-auto ">
+    <div className="max-w-[1440px] flex flex-col md:flex-row  mx-auto ">
       <div className="basis-1/3 h-screen relative ">
         <img
           src={bgMainDesktop}
@@ -25,9 +26,8 @@ function App() {
         />
         <CardBackMobile />
         <CardFrontMobile />
-        <CardBack />
       </div>
-      <div className="flex flex-1 bg-green-700">tes</div>
+      <FormSection />
     </div>
   );
 }
