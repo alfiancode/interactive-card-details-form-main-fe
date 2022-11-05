@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Navigate, useNavigate } from "react-router-dom";
 const Form = () => {
   // schema yup for validation with react-hook-form and resolver
   const schema = yup.object().shape({
@@ -23,7 +24,7 @@ const Form = () => {
       .required("CVV is required")
       .typeError(" must be a number"),
   });
-
+  const navigate = useNavigate();
   const {
     reset,
     register,
@@ -32,15 +33,17 @@ const Form = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
-
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/thankyou");
+  };
   return (
     <form className="space-y-2 max-w-md mx-5" onSubmit={handleSubmit(onSubmit)}>
       <div className="">
         <label className=" text-sm font-semibold mb-2">Cardholder Name</label>
         <input
           type="text"
-          className="w-full ring-1 ring-gray-500  p-2 rounded-lg mb-4 focus:ring-blue-500"
+          className="w-full ring-1 ring-gray-500  p-2 rounded-lg  focus:ring-blue-500"
           placeholder="John Doe"
           {...register("CardholderName")}
         />
