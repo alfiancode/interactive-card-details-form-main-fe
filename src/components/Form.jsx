@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Navigate, useNavigate } from "react-router-dom";
+import InputMask from "react-input-mask";
 const Form = () => {
   // schema yup for validation with react-hook-form and resolver
   const schema = yup.object().shape({
@@ -10,19 +11,23 @@ const Form = () => {
     CardNumber: yup
       .number("tes")
       .required("Card Number is required")
-      .typeError(" must be a number"),
+      .typeError("Card Number is required"),
     ExpirationDateMM: yup
       .number()
-      .required("Expiration Date is required")
-      .typeError(" must be a number"),
+      .required("Month Date is required")
+      .typeError("Month Date is required")
+      .min(1, "must be at least 1")
+      .max(12, "must be at most 12"),
     ExpirationDateYY: yup
       .number("should be number")
-      .required("Expiration Date is required")
-      .typeError(" must be a number"),
+      .typeError("Year Date is required")
+      .required("Year Date is required")
+      .min(1999, "must be at least 1999")
+      .max(2099, "must be at most 2099"),
     CVV: yup
       .number("should be number")
       .required("CVV is required")
-      .typeError(" must be a number"),
+      .typeError("Expiration Date is required"),
   });
   const navigate = useNavigate();
   const {
@@ -34,6 +39,7 @@ const Form = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
+    reset();
     console.log(data);
     navigate("/thankyou");
   };
@@ -51,10 +57,15 @@ const Form = () => {
       </div>
       <div className="">
         <label className=" text-sm font-semibold mb-2">Card Number</label>
-        <input
-          type="number"
+        <InputMask
+          mask={"9999 9999 9999 9999"}
+          alwaysShowMask={false}
+          maskPlaceholder=""
+          // input options
+          type="text"
+          // type="number"
           className="w-full border-[1px] border-gray-200 p-2 rounded-lg "
-          placeholder="John Doe"
+          // placeholder="John Doe"
           {...register("CardNumber")}
         />
         <p className="text-red-500"> {errors?.CardNumber?.message} </p>
@@ -84,6 +95,7 @@ const Form = () => {
                 type="number"
                 className="w-full border-[1px] border-gray-200 p-2 rounded-lg "
                 placeholder="YY"
+                inputProps={{ min: 4, max: 10 }}
                 {...register("ExpirationDateYY")}
               />
               <p className="text-red-500">
