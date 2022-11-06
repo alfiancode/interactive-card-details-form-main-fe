@@ -4,7 +4,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Navigate, useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
+import { useSetRecoilState } from "recoil";
+import { cardState } from "../recoil/Atoms";
 const Form = () => {
+  const setCardState = useSetRecoilState(cardState);
   // schema yup for validation with react-hook-form and resolver
   const schema = yup.object().shape({
     CardholderName: yup.string().required("Name is required"),
@@ -38,10 +41,21 @@ const Form = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  function formatCardNumber(s) {
+    return s.toString().replace(/\d{4}(?=.)/g, "$& ");
+  }
   const onSubmit = (data) => {
     reset();
     console.log(data);
     navigate("/thankyou");
+
+    setCardState({
+      CardholderName: data.CardholderName,
+      CardNumber: formatCardNumber(data.CardNumber),
+      ExpirationDateMM: data.ExpirationDateMM,
+      ExpirationDateYY: data.ExpirationDateYY,
+      CVV: data.CVV,
+    });
   };
   return (
     <form className="space-y-2 max-w-md mx-5" onSubmit={handleSubmit(onSubmit)}>
@@ -95,7 +109,6 @@ const Form = () => {
                 type="number"
                 className="w-full border-[1px] border-gray-200 p-2 rounded-lg "
                 placeholder="YY"
-                inputProps={{ min: 4, max: 10 }}
                 {...register("ExpirationDateYY")}
               />
               <p className="text-red-500">
