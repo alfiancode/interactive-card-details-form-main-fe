@@ -58,7 +58,7 @@ const Form = () => {
     });
   };
   return (
-    <form className="space-y-2 max-w-md mx-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-2 max-w-sm mx-5" onSubmit={handleSubmit(onSubmit)}>
       <div className="">
         <label className=" text-sm font-semibold mb-2">Cardholder Name</label>
         <input
