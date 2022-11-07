@@ -9,7 +9,7 @@ const CardFrontMobile = () => {
   const [cardDate, setCardDate] = useState("MM/YY");
   console.log("cardState", cardStateValue);
   return (
-    <div className="absolute h-[157px] w-[280px] m-auto left-0 right-20 top-32 md:top-[22%] md:left-[30%]">
+    <div className="absolute h-[157px] w-[280px] md:h-[200px] md:w-[350px] m-auto left-0 right-20 top-32 md:top-[22%] md:left-[30%]">
       <img src={bgCardFront} alt="" className="bg-cover w-full h-full  " />
       <p className="absolute top-0 w-full h-full">
         <div className="mx-5 my-3 flex flex-col">
